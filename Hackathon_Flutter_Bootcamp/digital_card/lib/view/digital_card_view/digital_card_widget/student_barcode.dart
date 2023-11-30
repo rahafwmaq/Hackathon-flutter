@@ -17,7 +17,7 @@ class StudentBarcode extends StatelessWidget {
             width: 200,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: Colors.white,
+              color: const Color.fromARGB(47, 255, 255, 255),
               boxShadow: const [
                 BoxShadow(color: Colors.black26, blurRadius: 40),
               ],
@@ -25,15 +25,15 @@ class StudentBarcode extends StatelessWidget {
             child: ClipRRect(
                 borderRadius: BorderRadius.circular(20),
                 child: QrImageView(
-                  data: state.studentInfo[0].studentNationalId!,
+                  data:
+                      '${state.studentInfo[0].studentFirstName!} ${state.studentInfo[0].studentLastName!}',
                   version: QrVersions.auto,
                   size: 100,
                 )),
           );
         } else if (state is ErrorStateBloc) {
-          print(state.message);
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text('throw ${state.message}')));
+          ScaffoldMessenger.of(context)
+              .showSnackBar(SnackBar(content: Text(state.message)));
         }
         return Container();
       },

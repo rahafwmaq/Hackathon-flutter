@@ -12,40 +12,38 @@ class StudentCourseInfoWidget extends StatelessWidget {
     return BlocBuilder<DigitalCardBloc, DigitalCardState>(
         builder: (context, state) {
       if (state is UpdateDigitalCardInfoState) {
-        //print('2222222222222222222222222222222222    ${state.studentInfo[0]}');
         return Column(
           children: [
             TextWidget(
               text: state.courseInfo[0].courseName!,
-              fontWeightText: FontWeight.w500,
+              fontWeightText: FontWeight.w600,
               fontSizeText: 18,
-              colorText: Colors.black,
+              colorText: Colors.white,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 TextWidget(
                   text: 'Start : ${state.courseInfo[0].courseStart!}',
-                  fontWeightText: FontWeight.w300,
+                  fontWeightText: FontWeight.w400,
                   fontSizeText: 18,
-                  colorText: Colors.black,
+                  colorText: Colors.white,
                 ),
                 TextWidget(
                   text: 'End : ${state.courseInfo[0].courseEnd!}',
-                  fontWeightText: FontWeight.w300,
+                  fontWeightText: FontWeight.w400,
                   fontSizeText: 18,
-                  colorText: Colors.black,
+                  colorText: Colors.white,
                 ),
               ],
             )
           ],
         );
       } else if (state is ErrorStateBloc) {
-        print(state.message);
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text('throw ${state.message}')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(state.message)));
       }
-      return CircularProgressIndicator();
+      return Container();
     });
   }
 }

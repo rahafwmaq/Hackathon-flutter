@@ -5,10 +5,12 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 class SupabaseFunction {
   Future<List<LoginData>> checkLogin(
-      {required String columnName, required String value}) async {
+      {required String email, required String password}) async {
     final supabase = Supabase.instance.client;
-    final List data =
-        await supabase.from('student_login').select().eq(columnName, value);
+    final List data = await supabase
+        .from('student_login')
+        .select()
+        .match({"student_email": email, "student_password": password});
 
     List<LoginData> loginStudentData = [];
     for (var element in data) {
@@ -37,12 +39,13 @@ class SupabaseFunction {
     return studentInfoList;
   }
 
-  Future<List<CourseInfo>> getStudentCourses({required String studentNationalID}) async {
+  Future<List<CourseInfo>> getStudentCourses(
+      {required String studentNationalID}) async {
     final supabase = Supabase.instance.client;
     final List data = await supabase
         .from('course_info')
         .select()
-        .eq('student_id', studentNationalID); 
+        .eq('student_id', studentNationalID);
 
     print("\n\n============== course info ===================");
     print(data.toString());

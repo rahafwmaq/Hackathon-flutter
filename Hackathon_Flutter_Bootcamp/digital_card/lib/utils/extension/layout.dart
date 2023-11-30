@@ -48,4 +48,3 @@ const SizedBox height48 = SizedBox(height: 48);
 const SizedBox height50 = SizedBox(height: 50);
 
 
-// const Color appColdGreen = Color.fromARGB(169, 144, 161, 127);

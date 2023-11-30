@@ -18,6 +18,7 @@ class MainApp extends StatelessWidget {
     return BlocProvider(
       create: (BuildContext context) => DigitalCardBloc(),
       child: MaterialApp(
+        debugShowCheckedModeBanner: false,
         home: LoginView(),
       ),
     );

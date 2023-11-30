@@ -7,9 +7,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class StudentInfoWidget extends StatelessWidget {
-  const StudentInfoWidget({super.key,  });
-
-
+  const StudentInfoWidget({
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -27,48 +27,49 @@ class StudentInfoWidget extends StatelessWidget {
             TextWidget(
               text:
                   '${state.studentInfo[0].studentFirstName!} ${state.studentInfo[0].studentSecondName!} ${state.studentInfo[0].studentLastName!}',
-              fontWeightText: FontWeight.w500,
+              fontWeightText: FontWeight.w600,
               fontSizeText: 18,
-              colorText: Colors.black,
+              colorText: Colors.white,
             ),
             TextWidget(
               text: state.studentInfo[0].studentNationalId!,
-              fontWeightText: FontWeight.w300,
+              fontWeightText: FontWeight.w400,
               fontSizeText: 15,
-              colorText: Colors.black,
+              colorText: Colors.white,
             ),
+
             TextWidget(
               text: state.studentInfo[0].studentCollage!,
-              fontWeightText: FontWeight.w300,
+              fontWeightText: FontWeight.w400,
               fontSizeText: 15,
-              colorText: Colors.black,
+              colorText: Colors.white,
             ),
             TextWidget(
               text: state.studentInfo[0].studentSpecialist!,
-              fontWeightText: FontWeight.w300,
+              fontWeightText: FontWeight.w400,
               fontSizeText: 15,
-              colorText: Colors.black,
+              colorText: Colors.white,
             ),
+
             TextWidget(
               text: state.studentInfo[0].studentPhoneNumber!,
-              fontWeightText: FontWeight.w300,
+              fontWeightText: FontWeight.w400,
               fontSizeText: 15,
-              colorText: Colors.black,
+              colorText: Colors.white,
             ),
             TextWidget(
               text: state.loginData[0].studentEmail!,
-              fontWeightText: FontWeight.w300,
+              fontWeightText: FontWeight.w400,
               fontSizeText: 15,
-              colorText: Colors.black,
+              colorText: Colors.white,
             ),
           ],
         );
       } else if (state is ErrorStateBloc) {
-        print(state.message);
-          // ScaffoldMessenger.of(context)
-          //     .showSnackBar(SnackBar(content: Text('throw ${state.message}')));
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text(state.message)));
       }
-      return Container();
+      return const Center(child: CircularProgressIndicator());
     });
   }
 }

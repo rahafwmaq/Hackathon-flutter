@@ -6,35 +6,31 @@ import 'package:digital_card/model/login_model.dart';
 import 'package:digital_card/model/student_model.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+bool isMatch = true;
+
 class DigitalCardBloc extends Bloc<DigitalCardEvent, DigitalCardState> {
   DigitalCardBloc() : super(InitialState()) {
     on<GetDigitalCardInfoEvent>((event, emit) async {
       try {
-        final List<LoginData> email = await SupabaseFunction()
-            .checkLogin(columnName: 'student_email', value: event.email);
 
-        final List<LoginData> password = await SupabaseFunction()
-            .checkLogin(columnName: 'student_password', value: event.password);
-
-        if (email[0].studentEmail == event.email &&
-            password[0].studentPassword == event.password) {
+        final List<LoginData> login = await SupabaseFunction()
+            .checkLogin(email: event.email, password: event.password);
+        if (event.email.isEmpty && event.password.isEmpty) {
+          emit(ErrorStateBloc(message: 'Kindly fill all the field '));
+        } else if (login[0].studentEmail == event.email &&
+            login[0].studentPassword == event.password) {
           final List<StudentInfo> student = await SupabaseFunction()
-              .getStudentInformation(studentID: email[0].studentId!);
+              .getStudentInformation(studentID: login[0].studentId!);
 
           final List<CourseInfo> course = await SupabaseFunction()
               .getStudentCourses(
                   studentNationalID: student[0].studentNationalId!);
 
-          print(student[0].studentCollage);
-          print(course[0].courseName);
-          print(email[0].studentEmail);
-
-          print(email[0].studentPassword);
-
-          emit(UpdateDigitalCardInfoState(student, course, email));
+          emit(UpdateDigitalCardInfoState(student, course, login));
         }
       } catch (error) {
-        emit(ErrorStateBloc(message: error.toString()));
+        print(error.toString());
+        emit(ErrorStateBloc(message: 'Your Email or Password incorrect'));
       }
     });
   }
